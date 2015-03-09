@@ -3,7 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 public class SearchFrame extends JFrame {
 
-	//private JLabel lab1 = new JLabel("välj ett av följande alternativ");
+	private String message = "";
+	private JLabel lab1 = new JLabel(message);
 
 // knappar
 	private JButton b1 = new JButton("Search for member ID");
@@ -17,6 +18,7 @@ public class SearchFrame extends JFrame {
     	ActionListener aLb2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
+
 		}
    };
    private JButton b3 = new JButton("Order all members");
@@ -25,15 +27,22 @@ public class SearchFrame extends JFrame {
 		System.out.println("Underlista");
 		}
    };
+   private JButton b4 = new JButton("Search for specifik Team");
+    	ActionListener aLb4 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		System.out.println("Specifikt lag skrivs ut");
+		}
+   };
+
 
 // konstruktor	
-	public GuiFrame(){
+	public SearchFrame(){
 
 	//Actionlisteners
 		b1.addActionListener(aLb1);
 		b2.addActionListener(aLb2);
 		b3.addActionListener(aLb3);
-	
+		b4.addActionListener(aLb4);
 
 	//panel	
 	JPanel buttonPanel = new JPanel();
@@ -55,6 +64,7 @@ public class SearchFrame extends JFrame {
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
 	buttonPanel.add(b3);
+	buttonPanel.add(b4);
 	add(textPanel,BorderLayout.CENTER);
 	add(buttonPanel, BorderLayout.NORTH);
 	
@@ -62,7 +72,7 @@ public class SearchFrame extends JFrame {
 
 	// must do's
 	setExtendedState(Frame.MAXIMIZED_BOTH);
-		
+
 	setTitle("Search");
 	setBackground(Color.white);
 	setVisible(true);
