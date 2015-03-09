@@ -1,23 +1,28 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class GuiFrame extends JFrame {
+public class SearchFrame extends JFrame {
 
-	private JLabel lab1 = new JLabel("välj ett av följande alternativ");
+	//private JLabel lab1 = new JLabel("välj ett av följande alternativ");
 
 // knappar
-	private JButton b1 = new JButton("RegistryCare");
+	private JButton b1 = new JButton("Search for member ID");
 
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("Startar Registry ändrare");
+		System.out.println("Search Code exec");
 		}
 	};
-    private JButton b2 = new JButton("SearchNdestroy");
+    private JButton b2 = new JButton("Search for Leaders in specifik team");
     	ActionListener aLb2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("Kör Search");
-		SearchFrame serframe = new SearchFrame();
+		System.out.println("Search Code exec");
+		}
+   };
+   private JButton b3 = new JButton("Order all members");
+    	ActionListener aLb3 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		System.out.println("Underlista");
 		}
    };
 
@@ -27,7 +32,8 @@ public class GuiFrame extends JFrame {
 	//Actionlisteners
 		b1.addActionListener(aLb1);
 		b2.addActionListener(aLb2);
-	//setExtendedState(Frame.MAXIMIZED_BOTH);
+		b3.addActionListener(aLb3);
+	
 
 	//panel	
 	JPanel buttonPanel = new JPanel();
@@ -48,13 +54,16 @@ public class GuiFrame extends JFrame {
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
-	add(textPanel,BorderLayout.NORTH);
-	add(buttonPanel, BorderLayout.SOUTH);
+	buttonPanel.add(b3);
+	add(textPanel,BorderLayout.CENTER);
+	add(buttonPanel, BorderLayout.NORTH);
 	
 
 
-	// must do's	
-	setTitle("-Huvudmeny-");
+	// must do's
+	setExtendedState(Frame.MAXIMIZED_BOTH);
+		
+	setTitle("Search");
 	setBackground(Color.white);
 	setVisible(true);
 	pack();
@@ -62,11 +71,5 @@ public class GuiFrame extends JFrame {
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	
 	
-	}// konstruktor ends
-
-		public static void main(String[] args) {
-			GuiFrame dem = new GuiFrame();
-		}
-
-
+	}// 
 }
