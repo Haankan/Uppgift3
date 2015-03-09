@@ -8,16 +8,47 @@ public class GuiFrame extends JFrame {
 // knappar
 	private JButton b1 = new JButton("RegistryCare");
     private JButton b2 = new JButton("SearchNdestroy");
+   
 
 // konstruktor	
 	public GuiFrame(){
-	add(lab1);
-	JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
+//Frame	
+	//setExtendedState(Frame.MAXIMIZED_BOTH);
 
+//panel	
+	JPanel buttonPanel = new JPanel();
+  	JPanel textPanel = new JPanel();
+
+	setLayout(new BorderLayout());
+
+	textPanel.setLayout(new GridBagLayout());
+	GridBagConstraints g1 = new GridBagConstraints();
+	
+	g1.gridx = 0;
+	g1.gridy = 0;
+	g1.gridwidth = 2; 
+	g1.gridheight = 1;
+
+	g1.insets = new Insets(0, 0, 0, 10);
+	textPanel.add(lab1,g1);
+
+	add(textPanel,BorderLayout.NORTH);
+	add(buttonPanel, BorderLayout.SOUTH);
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
-	add(buttonPanel);
+
+	
+	
+	
+
+	//buttonPanel.add(lab1,BorderLayout.CENTER);
+	//buttonPanel.add(b1,BorderLayout.WEST);
+   // buttonPanel.add(b2,BorderLayout.EAST);*/
+
+// must do's	
 	setTitle("-Huvudmeny-");
+
+	// buttonPanel.setBackground(Color.white);
 	setVisible(true);
 	pack();
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
