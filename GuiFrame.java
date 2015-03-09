@@ -13,7 +13,7 @@ public class GuiFrame extends JFrame {
 // konstruktor	
 	public GuiFrame(){
 //Frame	
-	//setExtendedState(Frame.MAXIMIZED_BOTH);
+	setExtendedState(Frame.MAXIMIZED_BOTH);
 
 //panel	
 	JPanel buttonPanel = new JPanel();
@@ -29,7 +29,7 @@ public class GuiFrame extends JFrame {
 	g1.gridwidth = 2; 
 	g1.gridheight = 1;
 
-	g1.insets = new Insets(0, 0, 0, 10);
+	g1.insets = new Insets(25, 25, 25, 25);
 	textPanel.add(lab1,g1);
 
 	add(textPanel,BorderLayout.NORTH);
@@ -47,10 +47,11 @@ public class GuiFrame extends JFrame {
 
 // must do's	
 	setTitle("-Huvudmeny-");
-
+	setBackground(Color.white);
 	// buttonPanel.setBackground(Color.white);
 	setVisible(true);
 	pack();
+	setLocationRelativeTo(null); 
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 		public static void main(String[] args) {
