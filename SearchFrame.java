@@ -6,6 +6,8 @@ public class SearchFrame extends JFrame {
 	private String message = "Hej hej hej sdasadsa ";
 	private JLabel lab1 = new JLabel(message);
 
+	JPanel textPanel;
+
 	private JTextArea jta = new JTextArea(30,45);
 // knappar
 	private JButton b1 = new JButton("Search for member ID");
@@ -13,12 +15,18 @@ public class SearchFrame extends JFrame {
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
+		textPanel.setVisible(false);
+		message = "Resultat String Search for member id";
+		textPanel.setVisible(true);
 		}
 	};
     private JButton b2 = new JButton("Search for Leaders in specifik team");
     	ActionListener aLb2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
+		textPanel.setVisible(false);
+		message = "Resultat String Search for leader in team";
+		textPanel.setVisible(true);
 
 		}
    };
@@ -26,12 +34,19 @@ public class SearchFrame extends JFrame {
     	ActionListener aLb3 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Underlista");
+		textPanel.setVisible(false);
+		message = "Sorterar alla members";
+		textPanel.setVisible(true);
 		}
    };
    private JButton b4 = new JButton("Search for specifik Team");
     	ActionListener aLb4 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Specifikt lag skrivs ut");
+		textPanel.setVisible(false);
+		message = "Resultat String Search for member id";
+		jta.append(message); 
+		textPanel.setVisible(true);
 		}
    };
    private JButton b5 = new JButton("Back");
@@ -54,7 +69,7 @@ public class SearchFrame extends JFrame {
 		b5.addActionListener(aLb5);
 	//panel	
 	JPanel buttonPanel = new JPanel();
-  	JPanel textPanel = new JPanel();
+  	 textPanel = new JPanel();
 
 	setLayout(new BorderLayout());
 
@@ -77,7 +92,7 @@ public class SearchFrame extends JFrame {
 	buttonPanel.add(b3);
 	buttonPanel.add(b4);
 	buttonPanel.add(b5);
-	//textPanel.add(jta);
+	
 	add(textPanel,BorderLayout.CENTER);
 	add(buttonPanel, BorderLayout.NORTH);
 	

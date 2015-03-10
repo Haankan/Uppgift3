@@ -4,14 +4,27 @@ import javax.swing.*;
 public class RegistryGui extends JFrame {
 
 	String message = "";
+	JPanel textPanel;
 
 	private JLabel lab1 = new JLabel(message);
+	private JLabel idl = new JLabel("ID:");
 	private JLabel fName = new JLabel("First Name");
 	private JLabel lName = new JLabel("Last Name");
 	private JLabel mail = new JLabel("Email");
+	private JLabel genderl = new JLabel("Gender");
+	private JLabel birthl = new JLabel("Birth");
+	private JLabel mbsl = new JLabel("MemberSince");
+	private JLabel activel = new JLabel("Active");
+
+	private JTextField id = new JTextField(5);
 	private JTextField givenName = new JTextField(15);
 	private JTextField familyName = new JTextField(15);
 	private JTextField email = new JTextField(20);
+	private JTextField gender = new JTextField(6);
+	private JTextField birth = new JTextField(10);
+	private JTextField memberSince = new JTextField(10);
+	private JTextField active = new JTextField(1);
+
 	/*private JTextField name = new JTextField(40);
 	private JTextField name = new JTextField(40);*/
 
@@ -21,14 +34,33 @@ public class RegistryGui extends JFrame {
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
-		//textPanel.setVisible(true);
+		textPanel.setVisible(false);
+		id.setText("");
+		givenName.setText("");
+		familyName.setText("");
+		email.setText("");
+		gender.setText("");
+		birth.setText("");
+		memberSince.setText("");
+		active.setText("");
+
+		textPanel.setVisible(true);
 		}
 	};
     private JButton b2 = new JButton("Update member");
     	ActionListener aLb2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
-
+		textPanel.setVisible(false);
+		id.setText("");
+		givenName.setText("");
+		familyName.setText("");
+		email.setText("");
+		gender.setText("");
+		birth.setText("");
+		memberSince.setText("");
+		active.setText("");
+		textPanel.setVisible(true);
 		}
    };
    private JButton b3 = new JButton("Back");
@@ -52,11 +84,11 @@ public class RegistryGui extends JFrame {
 
 	//panel	
 	JPanel buttonPanel = new JPanel();
-  	JPanel textPanel = new JPanel();
+  	 textPanel = new JPanel();
 
 	setLayout(new BorderLayout());
 
-	textPanel.setLayout(new GridBagLayout());
+	textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.PAGE_AXIS));
 	GridBagConstraints g1 = new GridBagConstraints();
 	
 	g1.gridx = 0;
@@ -65,16 +97,27 @@ public class RegistryGui extends JFrame {
 	g1.gridheight = 1;
 
 	g1.insets = new Insets(25, 25, 25, 25);
+	textPanel.add(idl);
+	textPanel.add(id);
 	textPanel.add(fName);
 	textPanel.add(givenName);
 	textPanel.add(lName);
 	textPanel.add(familyName);
 	textPanel.add(mail);
 	textPanel.add(email);
+	textPanel.add(genderl);
+	textPanel.add(gender);
+	textPanel.add(birthl);
+	textPanel.add(birth);
+	textPanel.add(mbsl);
+	textPanel.add(memberSince);
+	textPanel.add(activel);
+	textPanel.add(active);
+
 
 
 	textPanel.add(lab1,g1);
-	textPanel.setVisible(true);
+	textPanel.setVisible(false);
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
