@@ -3,8 +3,17 @@ import java.awt.event.*;
 import javax.swing.*;
 public class RegistryGui extends JFrame {
 
-	private String message = "";
+	String message = "";
+
 	private JLabel lab1 = new JLabel(message);
+	private JLabel fName = new JLabel("First Name");
+	private JLabel lName = new JLabel("Last Name");
+	private JLabel mail = new JLabel("Email");
+	private JTextField givenName = new JTextField(15);
+	private JTextField familyName = new JTextField(15);
+	private JTextField email = new JTextField(20);
+	/*private JTextField name = new JTextField(40);
+	private JTextField name = new JTextField(40);*/
 
 // knappar
 	private JButton b1 = new JButton("Create new member");
@@ -12,6 +21,7 @@ public class RegistryGui extends JFrame {
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
+		//textPanel.setVisible(true);
 		}
 	};
     private JButton b2 = new JButton("Update member");
@@ -55,7 +65,16 @@ public class RegistryGui extends JFrame {
 	g1.gridheight = 1;
 
 	g1.insets = new Insets(25, 25, 25, 25);
+	textPanel.add(fName);
+	textPanel.add(givenName);
+	textPanel.add(lName);
+	textPanel.add(familyName);
+	textPanel.add(mail);
+	textPanel.add(email);
+
+
 	textPanel.add(lab1,g1);
+	textPanel.setVisible(true);
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
@@ -69,7 +88,7 @@ public class RegistryGui extends JFrame {
 	// must do's
 	setExtendedState(Frame.MAXIMIZED_BOTH);
 
-	setTitle("Search");
+	setTitle("Registry");
 	setBackground(Color.white);
 	setVisible(true);
 	pack();

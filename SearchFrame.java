@@ -3,9 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 public class SearchFrame extends JFrame {
 
-	private String message = "";
+	private String message = "Hej hej hej sdasadsa ";
 	private JLabel lab1 = new JLabel(message);
 
+	private JTextArea jta = new JTextArea(30,45);
 // knappar
 	private JButton b1 = new JButton("Search for member ID");
 
@@ -66,13 +67,17 @@ public class SearchFrame extends JFrame {
 	g1.gridheight = 1;
 
 	g1.insets = new Insets(25, 25, 25, 25);
-	textPanel.add(lab1,g1);
+
+	jta.setOpaque(true);
+	jta.insert(message,0);
+	textPanel.add(jta,g1);
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
 	buttonPanel.add(b3);
 	buttonPanel.add(b4);
 	buttonPanel.add(b5);
+	//textPanel.add(jta);
 	add(textPanel,BorderLayout.CENTER);
 	add(buttonPanel, BorderLayout.NORTH);
 	
