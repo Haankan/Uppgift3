@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 public class SearchFrame extends JFrame {
 
-	private String message = "Hej hej hej sdasadsa ";
+	private String message = "";
 	private JLabel lab1 = new JLabel(message);
 
 	JPanel textPanel;
@@ -16,7 +16,9 @@ public class SearchFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
 		textPanel.setVisible(false);
+		jta.setText("");
 		message = "Resultat String Search for member id";
+		jta.append(message);
 		textPanel.setVisible(true);
 		}
 	};
@@ -25,7 +27,9 @@ public class SearchFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
 		textPanel.setVisible(false);
+		jta.setText("");
 		message = "Resultat String Search for leader in team";
+		jta.append(message); 
 		textPanel.setVisible(true);
 
 		}
@@ -35,7 +39,9 @@ public class SearchFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Underlista");
 		textPanel.setVisible(false);
+		jta.setText("");
 		message = "Sorterar alla members";
+		jta.append(message); 
 		textPanel.setVisible(true);
 		}
    };
@@ -44,6 +50,7 @@ public class SearchFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Specifikt lag skrivs ut");
 		textPanel.setVisible(false);
+		jta.setText("");
 		message = "Resultat String Search for member id";
 		jta.append(message); 
 		textPanel.setVisible(true);
@@ -83,7 +90,7 @@ public class SearchFrame extends JFrame {
 
 	g1.insets = new Insets(25, 25, 25, 25);
 
-	jta.setOpaque(true);
+	jta.setOpaque(false);
 	jta.insert(message,0);
 	textPanel.add(jta,g1);
 

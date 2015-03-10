@@ -3,8 +3,12 @@ import java.awt.event.*;
 import javax.swing.*;
 public class RegistryGui extends JFrame {
 
-	String message = "";
 	JPanel textPanel;
+	JPanel updatePanel;
+	JPanel buttonPanel;
+
+
+	String message = "";
 
 	private JLabel lab1 = new JLabel(message);
 	private JLabel idl = new JLabel("ID:");
@@ -15,6 +19,9 @@ public class RegistryGui extends JFrame {
 	private JLabel birthl = new JLabel("Birth");
 	private JLabel mbsl = new JLabel("MemberSince");
 	private JLabel activel = new JLabel("Active");
+	private JLabel rolel = new JLabel("Role");
+	private JLabel teaml = new JLabel("Team");
+
 
 	private JTextField id = new JTextField(5);
 	private JTextField givenName = new JTextField(15);
@@ -24,6 +31,8 @@ public class RegistryGui extends JFrame {
 	private JTextField birth = new JTextField(10);
 	private JTextField memberSince = new JTextField(10);
 	private JTextField active = new JTextField(1);
+	private JTextField role = new JTextField(1);
+	private JTextField team = new JTextField(10);
 
 	/*private JTextField name = new JTextField(40);
 	private JTextField name = new JTextField(40);*/
@@ -34,6 +43,7 @@ public class RegistryGui extends JFrame {
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
+		updatePanel.setVisible(false);
 		textPanel.setVisible(false);
 		id.setText("");
 		givenName.setText("");
@@ -52,6 +62,7 @@ public class RegistryGui extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
 		textPanel.setVisible(false);
+		updatePanel.setVisible(false);
 		id.setText("");
 		givenName.setText("");
 		familyName.setText("");
@@ -60,7 +71,7 @@ public class RegistryGui extends JFrame {
 		birth.setText("");
 		memberSince.setText("");
 		active.setText("");
-		textPanel.setVisible(true);
+		updatePanel.setVisible(true);
 		}
    };
    private JButton b3 = new JButton("Back");
@@ -82,13 +93,16 @@ public class RegistryGui extends JFrame {
 		b3.addActionListener(aLb3);
 		
 
-	//panel	
-	JPanel buttonPanel = new JPanel();
+	//panel
+
+	buttonPanel = new JPanel();
   	 textPanel = new JPanel();
+  	 updatePanel = new JPanel();
 
 	setLayout(new BorderLayout());
 
 	textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.PAGE_AXIS));
+	updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
 	GridBagConstraints g1 = new GridBagConstraints();
 	
 	g1.gridx = 0;
@@ -114,16 +128,29 @@ public class RegistryGui extends JFrame {
 	textPanel.add(activel);
 	textPanel.add(active);
 
+	updatePanel.add(idl);
+	updatePanel.add(id);
+	updatePanel.add(activel);
+	updatePanel.add(active);
+	updatePanel.add(rolel);
+	updatePanel.add(role);
+	updatePanel.add(teaml);
+	updatePanel.add(team);
+
+
 
 
 	textPanel.add(lab1,g1);
 	textPanel.setVisible(false);
+	updatePanel.setVisible(false);
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
 	buttonPanel.add(b3);
 	
+	add(updatePanel,BorderLayout.SOUTH);
 	add(textPanel,BorderLayout.CENTER);
+
 	add(buttonPanel, BorderLayout.NORTH);
 	
 
