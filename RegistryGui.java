@@ -21,6 +21,13 @@ public class RegistryGui extends JFrame {
 
 		}
    };
+   private JButton b3 = new JButton("Back");
+    	ActionListener aLb3 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		setVisible(false);
+		
+		}
+   };
  
 
 
@@ -30,6 +37,7 @@ public class RegistryGui extends JFrame {
 	//Actionlisteners
 		b1.addActionListener(aLb1);
 		b2.addActionListener(aLb2);
+		b3.addActionListener(aLb3);
 		
 
 	//panel	
@@ -51,6 +59,7 @@ public class RegistryGui extends JFrame {
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
+	buttonPanel.add(b3);
 	
 	add(textPanel,BorderLayout.CENTER);
 	add(buttonPanel, BorderLayout.NORTH);

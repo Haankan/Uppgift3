@@ -33,6 +33,13 @@ public class SearchFrame extends JFrame {
 		System.out.println("Specifikt lag skrivs ut");
 		}
    };
+   private JButton b5 = new JButton("Back");
+    	ActionListener aLb5 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		setVisible(false);
+		
+		}
+   };
 
 
 // konstruktor	
@@ -43,7 +50,7 @@ public class SearchFrame extends JFrame {
 		b2.addActionListener(aLb2);
 		b3.addActionListener(aLb3);
 		b4.addActionListener(aLb4);
-
+		b5.addActionListener(aLb5);
 	//panel	
 	JPanel buttonPanel = new JPanel();
   	JPanel textPanel = new JPanel();
@@ -65,6 +72,7 @@ public class SearchFrame extends JFrame {
 	buttonPanel.add(b2);
 	buttonPanel.add(b3);
 	buttonPanel.add(b4);
+	buttonPanel.add(b5);
 	add(textPanel,BorderLayout.CENTER);
 	add(buttonPanel, BorderLayout.NORTH);
 	

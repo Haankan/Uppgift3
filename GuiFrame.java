@@ -21,6 +21,15 @@ public class GuiFrame extends JFrame {
 		SearchFrame serframe = new SearchFrame();
 		}
    };
+   private JButton b3 = new JButton("Close");
+    	ActionListener aLb3 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		System.exit(1);
+		
+		}
+   };
+   
+
 
 // konstruktor	
 	public GuiFrame(){
@@ -28,7 +37,10 @@ public class GuiFrame extends JFrame {
 	//Actionlisteners
 		b1.addActionListener(aLb1);
 		b2.addActionListener(aLb2);
+		b3.addActionListener(aLb3);
+		
 	//setExtendedState(Frame.MAXIMIZED_BOTH);
+		
 
 	//panel	
 	JPanel buttonPanel = new JPanel();
@@ -49,6 +61,8 @@ public class GuiFrame extends JFrame {
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
+	buttonPanel.add(b3);
+	
 	add(textPanel,BorderLayout.NORTH);
 	add(buttonPanel, BorderLayout.SOUTH);
 	
