@@ -1,34 +1,36 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class GuiFrame extends JFrame {
+public class RegistryGui extends JFrame {
 
-	private JLabel lab1 = new JLabel("välj ett av följande alternativ");
+	private String message = "";
+	private JLabel lab1 = new JLabel(message);
 
 // knappar
-	private JButton b1 = new JButton("RegistryCare");
+	private JButton b1 = new JButton("Create new member");
 
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("Startar Registry ändrare");
-		RegistryGui regFrame = new RegistryGui();
+		System.out.println("Search Code exec");
 		}
 	};
-    private JButton b2 = new JButton("SearchNdestroy");
+    private JButton b2 = new JButton("Update member");
     	ActionListener aLb2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("Kör Search");
-		SearchFrame serframe = new SearchFrame();
+		System.out.println("Search Code exec");
+
 		}
    };
+ 
+
 
 // konstruktor	
-	public GuiFrame(){
+	public RegistryGui(){
 
 	//Actionlisteners
 		b1.addActionListener(aLb1);
 		b2.addActionListener(aLb2);
-	//setExtendedState(Frame.MAXIMIZED_BOTH);
+		
 
 	//panel	
 	JPanel buttonPanel = new JPanel();
@@ -49,13 +51,16 @@ public class GuiFrame extends JFrame {
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
-	add(textPanel,BorderLayout.NORTH);
-	add(buttonPanel, BorderLayout.SOUTH);
+	
+	add(textPanel,BorderLayout.CENTER);
+	add(buttonPanel, BorderLayout.NORTH);
 	
 
 
-	// must do's	
-	setTitle("-Huvudmeny-");
+	// must do's
+	setExtendedState(Frame.MAXIMIZED_BOTH);
+
+	setTitle("Search");
 	setBackground(Color.white);
 	setVisible(true);
 	pack();
@@ -63,11 +68,5 @@ public class GuiFrame extends JFrame {
 	setDefaultCloseOperation(EXIT_ON_CLOSE);
 	
 	
-	}// konstruktor ends
-
-		public static void main(String[] args) {
-			GuiFrame dem = new GuiFrame();
-		}
-
-
+	}// 
 }
