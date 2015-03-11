@@ -10,13 +10,15 @@ public class SearchFrame extends JFrame {
 
 	private JTextArea jta = new JTextArea(30,45);
 // knappar
-	private JButton b1 = new JButton("Search for member ID");
+	private JButton b1 = new JButton("Search for member first name");
 
 		ActionListener aLb1 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
 		textPanel.setVisible(false);
 		jta.setText("");
+		JFrame inputframe = new JFrame("Insert Name");
+    String inputname = JOptionPane.showInputDialog(inputframe, "What's the name");
 		message = "Resultat String Search for member id";
 		jta.append(message);
 		textPanel.setVisible(true);
@@ -28,14 +30,27 @@ public class SearchFrame extends JFrame {
 		System.out.println("Search Code exec");
 		textPanel.setVisible(false);
 		jta.setText("");
+		JFrame inputframe = new JFrame("Insert Team");
+    String inputname = JOptionPane.showInputDialog(inputframe, "Insert team");
 		message = "Resultat String Search for leader in team";
 		jta.append(message); 
 		textPanel.setVisible(true);
 
 		}
    };
-   private JButton b3 = new JButton("Order all members");
+   private JButton b3 = new JButton("Order all members by ID");
     	ActionListener aLb3 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		System.out.println("Underlista");
+		textPanel.setVisible(false);
+		jta.setText("");
+		message = "Sorterar alla members";
+		jta.append(message); 
+		textPanel.setVisible(true);
+		}
+   };
+   private JButton b6 = new JButton("Order all members by FamilyName");
+    	ActionListener aLb6 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Underlista");
 		textPanel.setVisible(false);
@@ -51,6 +66,8 @@ public class SearchFrame extends JFrame {
 		System.out.println("Specifikt lag skrivs ut");
 		textPanel.setVisible(false);
 		jta.setText("");
+		JFrame inputframe = new JFrame("Insert Team");
+    String inputname = JOptionPane.showInputDialog(inputframe, "What's the Team");
 		message = "Resultat String Search for member id";
 		jta.append(message); 
 		textPanel.setVisible(true);
@@ -74,6 +91,7 @@ public class SearchFrame extends JFrame {
 		b3.addActionListener(aLb3);
 		b4.addActionListener(aLb4);
 		b5.addActionListener(aLb5);
+		b6.addActionListener(aLb6);
 	//panel	
 	JPanel buttonPanel = new JPanel();
   	 textPanel = new JPanel();
@@ -97,6 +115,7 @@ public class SearchFrame extends JFrame {
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
 	buttonPanel.add(b3);
+	buttonPanel.add(b6);	
 	buttonPanel.add(b4);
 	buttonPanel.add(b5);
 	

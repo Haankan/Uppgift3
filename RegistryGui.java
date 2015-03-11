@@ -81,6 +81,23 @@ public class RegistryGui extends JFrame {
 		
 		}
    };
+     private JButton b4 = new JButton("Continue");
+    	ActionListener aLb4 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		System.out.println("Search Code exec");
+		textPanel.setVisible(false);
+		updatePanel.setVisible(false);
+		
+		updatePanel.setVisible(true);
+		}
+   };
+   private JButton b5 = new JButton("Continue");
+    	ActionListener aLb5 = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		System.out.println("Search Code exec");
+		
+		}
+   };
  
 
 
@@ -91,7 +108,8 @@ public class RegistryGui extends JFrame {
 		b1.addActionListener(aLb1);
 		b2.addActionListener(aLb2);
 		b3.addActionListener(aLb3);
-		
+		b4.addActionListener(aLb4);
+		b5.addActionListener(aLb5);
 
 	//panel
 
@@ -127,16 +145,17 @@ public class RegistryGui extends JFrame {
 	textPanel.add(memberSince);
 	textPanel.add(activel);
 	textPanel.add(active);
+	textPanel.add(b5);
 
 	updatePanel.add(idl);
 	updatePanel.add(id);
-	updatePanel.add(activel);
-	updatePanel.add(active);
+	//updatePanel.add(activel);
+	//updatePanel.add(active);
 	updatePanel.add(rolel);
 	updatePanel.add(role);
 	updatePanel.add(teaml);
 	updatePanel.add(team);
-
+	updatePanel.add(b4);
 
 
 
