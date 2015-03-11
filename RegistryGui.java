@@ -1,12 +1,14 @@
+package Uppgift3;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.sql.*;
 public class RegistryGui extends JFrame {
 
 	JPanel textPanel;
 	JPanel updatePanel;
 	JPanel buttonPanel;
-
 
 	String message = "";
 
@@ -84,18 +86,49 @@ public class RegistryGui extends JFrame {
      private JButton b4 = new JButton("Continue");
     	ActionListener aLb4 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("Search Code exec");
-		textPanel.setVisible(false);
-		updatePanel.setVisible(false);
+		System.out.println("uppdaterar Create Member");
+		//textPanel.setVisible(false);
+		//updatePanel.setVisible(false);
+		Connection c = null;
+            Statement stmt = null;
+		String inpID = id.getText();
+		int idexp = Integer.parseInt(inpID);
+		try {
+			Class.forName("org.sqlite.JDBC");
+                c = DriverManager.getConnection("jdbc:sqlite:mydata");
+                System.out.println("Opened database successfully");
+                stmt = c.createStatement();
+                String insertstmt = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + id + ",'" + givenName + "','" + familyName + "','" + gender + "','" + birth + "','" + memberSince + "'," + active + ");";
+                stmt.executeUpdate(insertstmt);
+              	
+                } catch (Exception err){
+                	System.out.println(err.getMessage());
+                		
 		
-		updatePanel.setVisible(true);
+				}
+				//updatePanel.setVisible(true);
 		}
    };
    private JButton b5 = new JButton("Continue");
     	ActionListener aLb5 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("Search Code exec");
-		
+			System.out.println("uppdaterar update member");
+			Connection c = null;
+            Statement stmt = null;
+		String inpID = id.getText();
+		int idexp = Integer.parseInt(inpID);
+		try {
+			Class.forName("org.sqlite.JDBC");
+                c = DriverManager.getConnection("jdbc:sqlite:mydata");
+                System.out.println("Opened database successfully");
+                stmt = c.createStatement();
+                stmt.executeUpdate("delete from medlem where id = " + "'" + inpID + "'");
+                stmt.executeUpdate("delete from funktion where id = " + "'" + inpID + "'");	
+                System.out.println("Succesfull update");
+                } catch ( Exception err){
+                	System.out.println(err.getMessage());
+                	
+                }	
 		}
    };
  
@@ -145,7 +178,7 @@ public class RegistryGui extends JFrame {
 	textPanel.add(memberSince);
 	textPanel.add(activel);
 	textPanel.add(active);
-	textPanel.add(b5);
+	textPanel.add(b4); // denna knapp är continue för skapa
 
 	updatePanel.add(idl);
 	updatePanel.add(id);
@@ -155,7 +188,7 @@ public class RegistryGui extends JFrame {
 	updatePanel.add(role);
 	updatePanel.add(teaml);
 	updatePanel.add(team);
-	updatePanel.add(b4);
+	updatePanel.add(b5);
 
 
 
