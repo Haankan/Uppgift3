@@ -25,14 +25,14 @@ public class RegistryGui extends JFrame {
 	private JLabel teaml = new JLabel("Team");
 
 
-	private JTextField id = new JTextField(5);
+	private JTextField id = new JTextField();
 	private JTextField givenName = new JTextField(15);
 	private JTextField familyName = new JTextField(15);
 	private JTextField email = new JTextField(20);
 	private JTextField gender = new JTextField(6);
 	private JTextField birth = new JTextField(10);
 	private JTextField memberSince = new JTextField(10);
-	private JTextField active = new JTextField(1);
+	private JTextField active = new JTextField();
 	private JTextField role = new JTextField(1);
 	private JTextField team = new JTextField(10);
 
@@ -98,6 +98,7 @@ public class RegistryGui extends JFrame {
                 c = DriverManager.getConnection("jdbc:sqlite:mydata");
                 System.out.println("Opened database successfully");
                 stmt = c.createStatement();
+                // ?? måste man inte parsa Id och Active? JTextfield vill inte.
                 String insertstmt = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + id + ",'" + givenName + "','" + familyName + "','" + gender + "','" + birth + "','" + memberSince + "'," + active + ");";
                 stmt.executeUpdate(insertstmt);
               	

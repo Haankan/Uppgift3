@@ -11,8 +11,10 @@ public class SearchFrame extends JFrame {
 	private JLabel lab1 = new JLabel(message);
 
 	JPanel textPanel;
+	
 
 	private JTextArea jta = new JTextArea(30,45);
+	private JScrollPane jScrollPane1 = new JScrollPane(jta);
 // knappar
 	private JButton b1 = new JButton("Search for member first name");
 
@@ -194,8 +196,9 @@ public class SearchFrame extends JFrame {
 	g1.insets = new Insets(25, 25, 25, 25);
 
 	jta.setOpaque(false);
+
 	jta.insert(message,0);
-	textPanel.add(jta,g1);
+	textPanel.add(jScrollPane1,g1);
 
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
