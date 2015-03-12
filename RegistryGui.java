@@ -95,7 +95,7 @@ public class RegistryGui extends JFrame {
 		int idexp = Integer.parseInt(inpID);
 		try {
 			Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:mydata");
+                c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
                 System.out.println("Opened database successfully");
                 stmt = c.createStatement();
                 // ?? måste man inte parsa Id och Active? JTextfield vill inte.
@@ -120,7 +120,7 @@ public class RegistryGui extends JFrame {
 		int idexp = Integer.parseInt(inpID);
 		try {
 			Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:mydata");
+                c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
                 System.out.println("Opened database successfully");
                 stmt = c.createStatement();
                 stmt.executeUpdate("delete from medlem where id = " + "'" + inpID + "'");
