@@ -1,4 +1,4 @@
-package Uppgift3;
+//package Uppgift3;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -132,7 +132,9 @@ public class RegistryGui extends JFrame {
 		}
    };
  
-
+  		JCheckBox aCheckBox1 = new JCheckBox("Tränare");
+     	JCheckBox aCheckBox2 = new JCheckBox("Spelare");
+      	JCheckBox aCheckBox3 = new JCheckBox("Förälder");
 
 // konstruktor	
 	public RegistryGui(){
@@ -184,6 +186,9 @@ public class RegistryGui extends JFrame {
 	updatePanel.add(id);
 	//updatePanel.add(activel);
 	//updatePanel.add(active);
+	updatePanel.add(aCheckBox1);
+	updatePanel.add(aCheckBox2);
+	updatePanel.add(aCheckBox3);
 	updatePanel.add(rolel);
 	updatePanel.add(role);
 	updatePanel.add(teaml);

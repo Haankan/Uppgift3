@@ -1,4 +1,4 @@
-package Uppgift3;
+//package Uppgift3;
 
 import java.awt.*;
 import java.awt.event.*;

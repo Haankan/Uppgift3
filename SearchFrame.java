@@ -1,4 +1,4 @@
-package Uppgift3;
+//package Uppgift3;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -29,7 +29,7 @@ public class SearchFrame extends JFrame {
             Statement stmt = null;
             try {
                 Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:mydata");
+                c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
 
                 System.out.println("Opened database successfully");
 
@@ -79,11 +79,11 @@ public class SearchFrame extends JFrame {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:mydata");
+            c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from medlem order by familyName");
+            ResultSet rs = stmt.executeQuery("select * from medlem order by id");
             while (rs.next()) {
                 a.add("\n" + rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + " " + rs.getString(6) + " " + rs.getInt(7));;
                  System.out.println("Sorting done successfully");
@@ -95,10 +95,12 @@ public class SearchFrame extends JFrame {
         for (int i = 0; i < a.size(); i++) {
             jta.append(a.get(i) + "\n");
 
+
         }
        
         textPanel.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }
+    //GEN-LAST:event_jButton3ActionPerformed
         //
 		/*jta.setText("");
 		message = "Sorterar alla members";
@@ -117,7 +119,7 @@ public class SearchFrame extends JFrame {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:mydata");
+            c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
