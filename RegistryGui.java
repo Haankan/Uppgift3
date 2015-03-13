@@ -91,13 +91,14 @@ public class RegistryGui extends JFrame {
 		System.out.println("uppdaterar Create Member");
 		//textPanel.setVisible(false);
 		//updatePanel.setVisible(false);
-<<<<<<< HEAD
+
 		ArrayList<String> a = new ArrayList<String>();
         //jta.setText("");
 
         String aId = idcr.getText();
         String givenN = givenName.getText();
         String familyN = familyName.getText();
+        String emailinput = email.getText();
         String dBirth = birth.getText();
         String mSince = memberSince.getText();
         String aGender = gender.getText();
@@ -116,9 +117,9 @@ public class RegistryGui extends JFrame {
 
             stmt = c.createStatement();
 
-            int pRole = 0;
+           // int pRole = 0;
 
-            String sql = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + aGender + "','" + dBirth + "','" + mSince + "'," + pActive + ");";
+            String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + aGender + "','" + dBirth + "','" + emailinput + "','" + mSince + "'," + pActive + ");";
             stmt.executeUpdate(sql);
             } catch (Exception error) {
 
@@ -126,8 +127,8 @@ public class RegistryGui extends JFrame {
 
            	
         }
-=======
-		Connection c = null;
+
+		/*Connection c = null;
             Statement stmt = null;
 		String inpID = id.getText();
 		int idexp = Integer.parseInt(inpID);
@@ -145,8 +146,8 @@ public class RegistryGui extends JFrame {
                 		
 		
 				}
-				//updatePanel.setVisible(true);
->>>>>>> origin/master
+				//updatePanel.setVisible(true);*/
+
 		}
    };
    private JButton b5 = new JButton("Continue");
