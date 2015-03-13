@@ -32,6 +32,7 @@ public class RegistryGui extends JFrame {
 	private JLabel activelUpd = new JLabel("Active");
 	private JLabel slashes = new JLabel("------");
 	private JLabel slashes2 = new JLabel("------");
+	private JLabel slashes3 = new JLabel("------");
 
 	private JTextField idcr = new JTextField(15);
 	private JTextField id = new JTextField(15);
@@ -129,7 +130,7 @@ public class RegistryGui extends JFrame {
 
             stmt = c.createStatement();
 
-            String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + aGender + "','" + dBirth + "','" + emailinput + "','" + mSince + "'," + pActive + ");";
+            String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + emailinput + "','" + gender + "','" + birth + "','" + mSince + "'," + pActive + ");";
             stmt.executeUpdate(sql);
             } catch (Exception error) {
 
@@ -170,7 +171,17 @@ public class RegistryGui extends JFrame {
                 //System.out.println("UPDATE medlem SET role = " + "'"+ roleExp + "' ,active = "+"'" + actExp + "'" + " where id = " + "'" + idexp + "'");
 
                // stmt.executeUpdate("UPDATE funktion SET role = "+"'" + roleExp + "'" + " where id = " + "'" + idexp + "'");
+                	try{
+            			String sq201 = "select givenName from medlem WHERE id = " + "'" + idexp + "'" + ";";
+            		stmt.executeUpdate(sq201);
+                	
 
+                }catch(Exception sqle){
+                	
+   					System.out.println(sqle.getMessage());
+                	JOptionPane.showMessageDialog(errorFrame, 
+  					"Couldn't remove/update this member", "Failure", JOptionPane.ERROR_MESSAGE);
+               	 }
 
             
                 if (aCheckBox1.isSelected() == true) {
@@ -182,7 +193,7 @@ public class RegistryGui extends JFrame {
 
           		  }
           			  if (aCheckBox2.isSelected() == true) {
-          			  	String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
+          			  	String sq11 = "delete role from funktion WHERE id = " + "'" + idexp + "'" + ";";
             			stmt.executeUpdate(sq11);
              		   personRole = 1;
                 		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
@@ -190,7 +201,7 @@ public class RegistryGui extends JFrame {
 
             	}
             	if (aCheckBox3.isSelected() == true) {
-            		String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
+            		String sq11 = "delete role from funktion WHERE id = " + "'" + idexp + "'" + ";";
            			 stmt.executeUpdate(sq11);
             	    personRole = 2;
              		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
@@ -214,6 +225,18 @@ public class RegistryGui extends JFrame {
              			   
                 
             	}
+            	if (aCheckBox7.isSelected() == true) {
+            		try{
+            		stmt.executeUpdate("delete from medlem where id = " + "'" + idexp + "'");
+                stmt.executeUpdate("delete from children where pid = " + "'" + idexp + "'");
+                 stmt.executeUpdate("delete from children where cid = " + "'" + idexp + "'");
+                stmt.executeUpdate("delete from funktion where id = " + "'" + idexp + "'");
+                	JOptionPane.showMessageDialog(null, "You have now deleted member :" + idexp);
+                }catch(Exception errar){
+                	JOptionPane.showMessageDialog(errorFrame, 
+  					"Couldn't remove/update this member", "Failure", JOptionPane.ERROR_MESSAGE);
+               	 }
+            	}
 
             } // else ends
                 
@@ -234,6 +257,7 @@ public class RegistryGui extends JFrame {
       	JCheckBox aCheckBox4 = new JCheckBox("I also whant to change the Email adress.");
       	JCheckBox aCheckBox5 = new JCheckBox("Active");
       	JCheckBox aCheckBox6 = new JCheckBox("UnActive");
+      	JCheckBox aCheckBox7 = new JCheckBox("Delete Member");
 
 // konstruktor	
 	public RegistryGui(){
@@ -296,6 +320,8 @@ public class RegistryGui extends JFrame {
 	updatePanel.add(slashes);
 	updatePanel.add(aCheckBox5);
 	updatePanel.add(aCheckBox6);
+	updatePanel.add(slashes3);
+	updatePanel.add(aCheckBox7);
 	//updatePanel.add(rolel);
 	//updatePanel.add(role);
 	//updatePanel.add(teaml);
