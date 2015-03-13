@@ -109,17 +109,18 @@ public class RegistryGui extends JFrame {
         //jta.setText("");
 
         String aId = idcr.getText();
+
         String givenN = givenName.getText();
         String familyN = familyName.getText();
         String emailinput = email.getText();
         String dBirth = birth.getText();
         String mSince = memberSince.getText();
-        String aGender = gender.getText();
-        String isActive = active.getText();
+        String aGender = "soWrong";
+       // String isActive = active.getText();
         //String team = jTextField9.getText();
 
         int pId = Integer.parseInt(aId);
-        int pActive = Integer.parseInt(isActive);
+        int pActive = 3;
         Connection c = null;
         Statement stmt = null;
 
@@ -128,10 +129,98 @@ public class RegistryGui extends JFrame {
             c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
             System.out.println("Opened database successfully");
 
-            stmt = c.createStatement();
-
-            String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + emailinput + "','" + gender + "','" + birth + "','" + mSince + "'," + pActive + ");";
+         	stmt = c.createStatement();
+         	String testID = "false";
+         	ResultSet rstest = stmt.executeQuery("select id from medlem where id = " + "'" + pId + "'");
+         	int id_col = rstest.getInt("id");
+         	if (id_col == pId) {
+         		System.out.println("medlem finns redan");
+         		JOptionPane.showMessageDialog(errorFrame, 
+  						"Member does already exist ", "Failure", JOptionPane.ERROR_MESSAGE);
+         			textPanel.setVisible(false);
+         			givenName.setText("");
+         					idcr.setText("");
+							familyName.setText("");
+							email.setText("");
+							gender.setText("");
+							birth.setText("");
+							memberSince.setText("");
+								if (aCheckBox9.isSelected()) {
+            			 				aCheckBox9.setSelected(false);
+      			 						  }
+								if (aCheckBox8.isSelected()) {
+           							  aCheckBox8.setSelected(false);
+       										 }
+       							if (aCheckBox10.isSelected()) {
+            					 		aCheckBox10.setSelected(false);
+      			 						  }
+								if (aCheckBox11.isSelected()) {
+           							  aCheckBox11.setSelected(false);
+      							 }
+         	
+         	}
+         	
+            String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + emailinput + "','" + aGender + "','" + dBirth + "','" + mSince + "'," + pActive + ");";
             stmt.executeUpdate(sql);
+
+
+            	if (aCheckBox8.isSelected() == true) {
+            	    
+                
+                	stmt.executeUpdate("UPDATE medlem SET active ='1' where id = " + "'" + pId + "'");
+
+            		}
+            	if (aCheckBox9.isSelected() == true) {
+            	    stmt.executeUpdate("UPDATE medlem SET active ='0' where id = " + "'" + pId + "'");
+             			   
+                
+            		}
+            	// början Man kvinna
+            	if (aCheckBox10.isSelected() == true) {
+            	    
+                
+                stmt.executeUpdate("UPDATE medlem SET gender ='Man' where id = " + "'" + pId + "'");
+
+            		}
+            	if (aCheckBox11.isSelected() == true) {
+            	    stmt.executeUpdate("UPDATE medlem SET gender ='Kvinna' where id = " + "'" + pId + "'");
+             			   
+                
+            		}
+
+            		JOptionPane.showMessageDialog(null, "You have now created a new member :" + pId);
+            	if (aCheckBox8.isSelected() == false && aCheckBox9.isSelected() == false || aCheckBox10.isSelected() == false && aCheckBox11.isSelected() == false 
+            		|| givenN.equals("")||familyN.equals("")||emailinput.equals("")||aGender.equals("")||dBirth.equals("")||mSince.equals("")){
+            			
+
+
+            			JOptionPane.showMessageDialog(errorFrame, 
+  						"You must insert all values", "Failure", JOptionPane.ERROR_MESSAGE);
+  							givenName.setText("");
+							familyName.setText("");
+							email.setText("");
+							gender.setText("");
+							birth.setText("");
+							memberSince.setText("");
+								if (aCheckBox9.isSelected()) {
+            			 				aCheckBox9.setSelected(false);
+      			 						  }
+								if (aCheckBox8.isSelected()) {
+           							  aCheckBox8.setSelected(false);
+       										 }
+       							if (aCheckBox10.isSelected()) {
+            					 		aCheckBox10.setSelected(false);
+      			 						  }
+								if (aCheckBox11.isSelected()) {
+           							  aCheckBox11.setSelected(false);
+       											 }
+
+
+						stmt.executeUpdate("delete from medlem where id = " + "'" + pId + "'");
+
+            	
+            		}
+
             } catch (Exception error) {
 
             System.out.println(error.getMessage());
@@ -258,6 +347,10 @@ public class RegistryGui extends JFrame {
       	JCheckBox aCheckBox5 = new JCheckBox("Active");
       	JCheckBox aCheckBox6 = new JCheckBox("UnActive");
       	JCheckBox aCheckBox7 = new JCheckBox("Delete Member");
+      	JCheckBox aCheckBox8 = new JCheckBox("Active");
+      	JCheckBox aCheckBox9 = new JCheckBox("UnActive");
+      	JCheckBox aCheckBox10 = new JCheckBox("Man");
+      	JCheckBox aCheckBox11 = new JCheckBox("Kvinna");
 
 // konstruktor	
 	public RegistryGui(){
@@ -297,14 +390,14 @@ public class RegistryGui extends JFrame {
 	textPanel.add(familyName);
 	textPanel.add(mail);
 	textPanel.add(email);
-	textPanel.add(genderl);
-	textPanel.add(gender);
+	textPanel.add(aCheckBox10);
+	textPanel.add(aCheckBox11);
 	textPanel.add(birthl);
 	textPanel.add(birth);
 	textPanel.add(mbsl);
 	textPanel.add(memberSince);
-	textPanel.add(activel);
-	textPanel.add(active);
+	textPanel.add(aCheckBox8);
+	textPanel.add(aCheckBox9);
 
 	textPanel.add(b4); // denna knapp är continue för skapa
 
