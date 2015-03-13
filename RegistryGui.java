@@ -10,6 +10,11 @@ public class RegistryGui extends JFrame {
 	JPanel textPanel;
 	JPanel updatePanel;
 	JPanel buttonPanel;
+	JPanel errorPanel;
+
+	JFrame errorFrame = new JFrame();
+
+	int personRole;
 
 	String message = "";
 	private JLabel idC = new JLabel("ID:");
@@ -25,6 +30,8 @@ public class RegistryGui extends JFrame {
 	private JLabel rolel = new JLabel("Role");
 	private JLabel teaml = new JLabel("Team");
 	private JLabel activelUpd = new JLabel("Active");
+	private JLabel slashes = new JLabel("------");
+	private JLabel slashes2 = new JLabel("------");
 
 	private JTextField idcr = new JTextField(15);
 	private JTextField id = new JTextField(15);
@@ -39,8 +46,7 @@ public class RegistryGui extends JFrame {
 	private JTextField team = new JTextField(10);
 	private JTextField activeUpd = new JTextField(1);
 
-	/*private JTextField name = new JTextField(40);
-	private JTextField name = new JTextField(40);*/
+
 
 // knappar
 	private JButton b1 = new JButton("Create new member");
@@ -67,9 +73,11 @@ public class RegistryGui extends JFrame {
     	ActionListener aLb2 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("Search Code exec");
+
 		textPanel.setVisible(false);
+		String inputDialogID = JOptionPane.showInputDialog(errorFrame, "Enter ID on Member");
 		updatePanel.setVisible(false);
-		id.setText("");
+		id.setText(inputDialogID);
 		givenName.setText("");
 		familyName.setText("");
 		email.setText("");
@@ -140,28 +148,77 @@ public class RegistryGui extends JFrame {
 			Connection c = null;
             Statement stmt = null;
 		String inpID = id.getText();
-			String inpRole	= role.getText();
+			//String inpRole	= role.getText();
 			
-			String actUnParsed = activeUpd.getText();
+			//String actUnParsed = activeUpd.getText();
 		try {
-				if (inpID.equals("")  || inpRole.equals("") || actUnParsed.equals("")){
+				if (inpID.equals("")){
 			System.out.println("NollPointerException");
+			JOptionPane.showMessageDialog(errorFrame, 
+  				"You must insert all values", "Failure", JOptionPane.ERROR_MESSAGE);
             }else{	
             				int idexp = Integer.parseInt(inpID);
-            				int actExp = Integer.parseInt(actUnParsed);
-            				int roleExp = Integer.parseInt(inpRole);
+            				//int actExp = Integer.parseInt(actUnParsed);
+            				//int roleExp = Integer.parseInt(inpRole);
 
             	Class.forName("org.sqlite.JDBC");
                 c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
                 System.out.println("Opened database successfully");
                 stmt = c.createStatement();
                 //stmt = c.createStatement();
-                stmt.executeUpdate("UPDATE medlem SET active = "+"'" + actExp + "'" + " where id = " + "'" + idexp + "'");
+                //stmt.executeUpdate("UPDATE medlem SET active = "+"'" + actExp + "'" + " where id = " + "'" + idexp + "'");
                 //System.out.println("UPDATE medlem SET role = " + "'"+ roleExp + "' ,active = "+"'" + actExp + "'" + " where id = " + "'" + idexp + "'");
 
-                stmt.executeUpdate("UPDATE funktion SET role = "+"'" + roleExp + "'" + " where id = " + "'" + idexp + "'");
-            }
+               // stmt.executeUpdate("UPDATE funktion SET role = "+"'" + roleExp + "'" + " where id = " + "'" + idexp + "'");
+
+
+            
+                if (aCheckBox1.isSelected() == true) {
+                	String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
+            		stmt.executeUpdate(sq11);
+                	personRole = 0;
+               	 	String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
+                	stmt.executeUpdate(sql3);
+
+          		  }
+          			  if (aCheckBox2.isSelected() == true) {
+          			  	String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
+            			stmt.executeUpdate(sq11);
+             		   personRole = 1;
+                		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
+               			 stmt.executeUpdate(sql3);
+
+            	}
+            	if (aCheckBox3.isSelected() == true) {
+            		String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
+           			 stmt.executeUpdate(sq11);
+            	    personRole = 2;
+             		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
+               		 stmt.executeUpdate(sql3);
+
+            	}
+            	if (aCheckBox4.isSelected() == true) {
+            	    
+             			   
+                String newInputMail = JOptionPane.showInputDialog(errorFrame, "Enter the new Emailadress for member "+idexp);
+                	stmt.executeUpdate("UPDATE medlem SET email = "+"'" + newInputMail + "'" + " where id = " + "'" + idexp + "'");
+            	}
+            	if (aCheckBox5.isSelected() == true) {
+            	    
                 
+                stmt.executeUpdate("UPDATE medlem SET active ='1' where id = " + "'" + idexp + "'");
+
+            	}
+            	if (aCheckBox6.isSelected() == true) {
+            	    stmt.executeUpdate("UPDATE medlem SET active ='0' where id = " + "'" + idexp + "'");
+             			   
+                
+            	}
+
+            } // else ends
+                
+                JOptionPane.showMessageDialog(errorFrame, "Congratulations! you have successfully updated a member");
+                updatePanel.setVisible(false);
                 System.out.println("Succesfull update");
                 } catch ( Exception err){
                 	System.out.println("NollPointerException");
@@ -171,9 +228,12 @@ public class RegistryGui extends JFrame {
 		}
    };
  
-  		/*JCheckBox aCheckBox1 = new JCheckBox("Tränare");
-     	JCheckBox aCheckBox2 = new JCheckBox("Spelare");
-      	JCheckBox aCheckBox3 = new JCheckBox("Förälder");*/
+  		JCheckBox aCheckBox1 = new JCheckBox("Player");
+     	JCheckBox aCheckBox2 = new JCheckBox("Coach");
+      	JCheckBox aCheckBox3 = new JCheckBox("Parent");
+      	JCheckBox aCheckBox4 = new JCheckBox("I also whant to change the Email adress.");
+      	JCheckBox aCheckBox5 = new JCheckBox("Active");
+      	JCheckBox aCheckBox6 = new JCheckBox("UnActive");
 
 // konstruktor	
 	public RegistryGui(){
@@ -190,11 +250,13 @@ public class RegistryGui extends JFrame {
 	buttonPanel = new JPanel();
   	 textPanel = new JPanel();
   	 updatePanel = new JPanel();
+  	
 
 	setLayout(new BorderLayout());
 
 	textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.PAGE_AXIS));
 	updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
+	
 	GridBagConstraints g1 = new GridBagConstraints();
 	
 	g1.gridx = 0;
@@ -224,19 +286,27 @@ public class RegistryGui extends JFrame {
 
 	updatePanel.add(idl);
 	updatePanel.add(id);
-	updatePanel.add(activelUpd);
-	updatePanel.add(activeUpd);
-	//updatePanel.add(aCheckBox1);
-	//updatePanel.add(aCheckBox2);
-	//updatePanel.add(aCheckBox3);
-	updatePanel.add(rolel);
-	updatePanel.add(role);
-	updatePanel.add(teaml);
-	updatePanel.add(team);
+	//updatePanel.add(activelUpd);
+	//updatePanel.add(activeUpd);
+	updatePanel.add(aCheckBox1);
+	updatePanel.add(aCheckBox2);
+	updatePanel.add(aCheckBox3);
+	updatePanel.add(slashes2);
+	updatePanel.add(aCheckBox4);
+	updatePanel.add(slashes);
+	updatePanel.add(aCheckBox5);
+	updatePanel.add(aCheckBox6);
+	//updatePanel.add(rolel);
+	//updatePanel.add(role);
+	//updatePanel.add(teaml);
+	//updatePanel.add(team);
 	updatePanel.add(b5);
 
 
-
+	//errorFrame.setVisible(false);
+	
+	//errorPanel.add(errorFrame);
+	//errorPanel.setVisible(false);
 	textPanel.add(lab1,g1);
 	textPanel.setVisible(false);
 	updatePanel.setVisible(false);
@@ -244,7 +314,7 @@ public class RegistryGui extends JFrame {
 	buttonPanel.add(b1); 
 	buttonPanel.add(b2);
 	buttonPanel.add(b3);
-	
+	//add(errorPanel,BorderLayout.WEST);
 	add(updatePanel,BorderLayout.SOUTH);
 	add(textPanel,BorderLayout.CENTER);
 
