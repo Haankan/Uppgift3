@@ -91,6 +91,7 @@ public class RegistryGui extends JFrame {
 		System.out.println("uppdaterar Create Member");
 		//textPanel.setVisible(false);
 		//updatePanel.setVisible(false);
+<<<<<<< HEAD
 		ArrayList<String> a = new ArrayList<String>();
         //jta.setText("");
 
@@ -125,6 +126,27 @@ public class RegistryGui extends JFrame {
 
            	
         }
+=======
+		Connection c = null;
+            Statement stmt = null;
+		String inpID = id.getText();
+		int idexp = Integer.parseInt(inpID);
+		try {
+			Class.forName("org.sqlite.JDBC");
+                c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
+                System.out.println("Opened database successfully");
+                stmt = c.createStatement();
+                // ?? måste man inte parsa Id och Active? JTextfield vill inte.
+                String insertstmt = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + id + ",'" + givenName + "','" + familyName + "','" + gender + "','" + birth + "','" + memberSince + "'," + active + ");";
+                stmt.executeUpdate(insertstmt);
+              	
+                } catch (Exception err){
+                	System.out.println(err.getMessage());
+                		
+		
+				}
+				//updatePanel.setVisible(true);
+>>>>>>> origin/master
 		}
    };
    private JButton b5 = new JButton("Continue");
@@ -137,7 +159,7 @@ public class RegistryGui extends JFrame {
 		int idexp = Integer.parseInt(inpID);
 		try {
 			Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:mydata");
+                c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
                 System.out.println("Opened database successfully");
                 stmt = c.createStatement();
                 stmt.executeUpdate("delete from medlem where id = " + "'" + inpID + "'");
