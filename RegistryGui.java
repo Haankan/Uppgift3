@@ -24,6 +24,7 @@ public class RegistryGui extends JFrame {
 	private JLabel activel = new JLabel("Active");
 	private JLabel rolel = new JLabel("Role");
 	private JLabel teaml = new JLabel("Team");
+	private JLabel activelUpd = new JLabel("Active");
 
 	private JTextField idcr = new JTextField(15);
 	private JTextField id = new JTextField(15);
@@ -33,9 +34,10 @@ public class RegistryGui extends JFrame {
 	private JTextField gender = new JTextField(6);
 	private JTextField birth = new JTextField(10);
 	private JTextField memberSince = new JTextField(10);
-	private JTextField active = new JTextField();
+	private JTextField active = new JTextField(1);
 	private JTextField role = new JTextField(1);
 	private JTextField team = new JTextField(10);
+	private JTextField activeUpd = new JTextField(1);
 
 	/*private JTextField name = new JTextField(40);
 	private JTextField name = new JTextField(40);*/
@@ -75,6 +77,8 @@ public class RegistryGui extends JFrame {
 		birth.setText("");
 		memberSince.setText("");
 		active.setText("");
+		role.setText("");
+		activeUpd.setText("");
 		updatePanel.setVisible(true);
 		}
    };
@@ -85,7 +89,7 @@ public class RegistryGui extends JFrame {
 		
 		}
    };
-     private JButton b4 = new JButton("Continue");
+     private JButton b4 = new JButton("Continue"); // för Create
     	ActionListener aLb4 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		System.out.println("uppdaterar Create Member");
@@ -117,8 +121,6 @@ public class RegistryGui extends JFrame {
 
             stmt = c.createStatement();
 
-           // int pRole = 0;
-
             String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + aGender + "','" + dBirth + "','" + emailinput + "','" + mSince + "'," + pActive + ");";
             stmt.executeUpdate(sql);
             } catch (Exception error) {
@@ -128,54 +130,50 @@ public class RegistryGui extends JFrame {
            	
         }
 
-		/*Connection c = null;
-            Statement stmt = null;
-		String inpID = id.getText();
-		int idexp = Integer.parseInt(inpID);
-		try {
-			Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
-                System.out.println("Opened database successfully");
-                stmt = c.createStatement();
-                // ?? måste man inte parsa Id och Active? JTextfield vill inte.
-                String insertstmt = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + id + ",'" + givenName + "','" + familyName + "','" + gender + "','" + birth + "','" + memberSince + "'," + active + ");";
-                stmt.executeUpdate(insertstmt);
-              	
-                } catch (Exception err){
-                	System.out.println(err.getMessage());
-                		
-		
-				}
-				//updatePanel.setVisible(true);*/
-
 		}
    };
-   private JButton b5 = new JButton("Continue");
+   private JButton b5 = new JButton("Continue"); // För Update
     	ActionListener aLb5 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("uppdaterar update member");
+
 			Connection c = null;
             Statement stmt = null;
-		String inpID = idcr.getText();
-		int idexp = Integer.parseInt(inpID);
+		String inpID = id.getText();
+			String inpRole	= role.getText();
+			
+			String actUnParsed = activeUpd.getText();
 		try {
-			Class.forName("org.sqlite.JDBC");
+				if (inpID.equals("")  || inpRole.equals("") || actUnParsed.equals("")){
+			System.out.println("NollPointerException");
+            }else{	
+            				int idexp = Integer.parseInt(inpID);
+            				int actExp = Integer.parseInt(actUnParsed);
+            				int roleExp = Integer.parseInt(inpRole);
+
+            	Class.forName("org.sqlite.JDBC");
                 c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
                 System.out.println("Opened database successfully");
                 stmt = c.createStatement();
-                stmt.executeUpdate("delete from medlem where id = " + "'" + inpID + "'");
-                stmt.executeUpdate("delete from funktion where id = " + "'" + inpID + "'");	
+                //stmt = c.createStatement();
+                stmt.executeUpdate("UPDATE medlem SET active = "+"'" + actExp + "'" + " where id = " + "'" + idexp + "'");
+                //System.out.println("UPDATE medlem SET role = " + "'"+ roleExp + "' ,active = "+"'" + actExp + "'" + " where id = " + "'" + idexp + "'");
+
+                stmt.executeUpdate("UPDATE funktion SET role = "+"'" + roleExp + "'" + " where id = " + "'" + idexp + "'");
+            }
+                
                 System.out.println("Succesfull update");
                 } catch ( Exception err){
+                	System.out.println("NollPointerException");
                 	System.out.println(err.getMessage());
                 	
                 }	
 		}
    };
  
-  		JCheckBox aCheckBox1 = new JCheckBox("Tränare");
+  		/*JCheckBox aCheckBox1 = new JCheckBox("Tränare");
      	JCheckBox aCheckBox2 = new JCheckBox("Spelare");
-      	JCheckBox aCheckBox3 = new JCheckBox("Förälder");
+      	JCheckBox aCheckBox3 = new JCheckBox("Förälder");*/
 
 // konstruktor	
 	public RegistryGui(){
@@ -226,11 +224,11 @@ public class RegistryGui extends JFrame {
 
 	updatePanel.add(idl);
 	updatePanel.add(id);
-	//updatePanel.add(activel);
-	//updatePanel.add(active);
-	updatePanel.add(aCheckBox1);
-	updatePanel.add(aCheckBox2);
-	updatePanel.add(aCheckBox3);
+	updatePanel.add(activelUpd);
+	updatePanel.add(activeUpd);
+	//updatePanel.add(aCheckBox1);
+	//updatePanel.add(aCheckBox2);
+	//updatePanel.add(aCheckBox3);
 	updatePanel.add(rolel);
 	updatePanel.add(role);
 	updatePanel.add(teaml);
