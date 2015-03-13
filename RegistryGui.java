@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
+import java.util.*;
 public class RegistryGui extends JFrame {
 
 	JPanel textPanel;
@@ -11,7 +12,7 @@ public class RegistryGui extends JFrame {
 	JPanel buttonPanel;
 
 	String message = "";
-
+	private JLabel idC = new JLabel("ID:");
 	private JLabel lab1 = new JLabel(message);
 	private JLabel idl = new JLabel("ID:");
 	private JLabel fName = new JLabel("First Name");
@@ -24,8 +25,8 @@ public class RegistryGui extends JFrame {
 	private JLabel rolel = new JLabel("Role");
 	private JLabel teaml = new JLabel("Team");
 
-
-	private JTextField id = new JTextField();
+	private JTextField idcr = new JTextField(15);
+	private JTextField id = new JTextField(15);
 	private JTextField givenName = new JTextField(15);
 	private JTextField familyName = new JTextField(15);
 	private JTextField email = new JTextField(20);
@@ -55,6 +56,7 @@ public class RegistryGui extends JFrame {
 		birth.setText("");
 		memberSince.setText("");
 		active.setText("");
+
 
 		textPanel.setVisible(true);
 		}
@@ -89,25 +91,40 @@ public class RegistryGui extends JFrame {
 		System.out.println("uppdaterar Create Member");
 		//textPanel.setVisible(false);
 		//updatePanel.setVisible(false);
-		Connection c = null;
-            Statement stmt = null;
-		String inpID = id.getText();
-		int idexp = Integer.parseInt(inpID);
-		try {
-			Class.forName("org.sqlite.JDBC");
-                c = DriverManager.getConnection("jdbc:sqlite:mydata");
-                System.out.println("Opened database successfully");
-                stmt = c.createStatement();
-                // ?? måste man inte parsa Id och Active? JTextfield vill inte.
-                String insertstmt = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + id + ",'" + givenName + "','" + familyName + "','" + gender + "','" + birth + "','" + memberSince + "'," + active + ");";
-                stmt.executeUpdate(insertstmt);
-              	
-                } catch (Exception err){
-                	System.out.println(err.getMessage());
-                		
-		
-				}
-				//updatePanel.setVisible(true);
+		ArrayList<String> a = new ArrayList<String>();
+        //jta.setText("");
+
+        String aId = idcr.getText();
+        String givenN = givenName.getText();
+        String familyN = familyName.getText();
+        String dBirth = birth.getText();
+        String mSince = memberSince.getText();
+        String aGender = gender.getText();
+        String isActive = active.getText();
+        //String team = jTextField9.getText();
+
+        int pId = Integer.parseInt(aId);
+        int pActive = Integer.parseInt(isActive);
+        Connection c = null;
+        Statement stmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:minDatabas");
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+
+            int pRole = 0;
+
+            String sql = "insert into medlem (id,givenName,familyName,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + aGender + "','" + dBirth + "','" + mSince + "'," + pActive + ");";
+            stmt.executeUpdate(sql);
+            } catch (Exception error) {
+
+            System.out.println(error.getMessage());
+
+           	
+        }
 		}
    };
    private JButton b5 = new JButton("Continue");
@@ -116,7 +133,7 @@ public class RegistryGui extends JFrame {
 			System.out.println("uppdaterar update member");
 			Connection c = null;
             Statement stmt = null;
-		String inpID = id.getText();
+		String inpID = idcr.getText();
 		int idexp = Integer.parseInt(inpID);
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -165,8 +182,8 @@ public class RegistryGui extends JFrame {
 	g1.gridheight = 1;
 
 	g1.insets = new Insets(25, 25, 25, 25);
-	textPanel.add(idl);
-	textPanel.add(id);
+	textPanel.add(idC);
+	textPanel.add(idcr);
 	textPanel.add(fName);
 	textPanel.add(givenName);
 	textPanel.add(lName);
@@ -181,6 +198,7 @@ public class RegistryGui extends JFrame {
 	textPanel.add(memberSince);
 	textPanel.add(activel);
 	textPanel.add(active);
+
 	textPanel.add(b4); // denna knapp är continue för skapa
 
 	updatePanel.add(idl);
