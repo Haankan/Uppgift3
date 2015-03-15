@@ -101,25 +101,51 @@ public class RegistryGui extends JFrame {
      private JButton b4 = new JButton("Continue"); // för Create
     	ActionListener aLb4 = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		System.out.println("uppdaterar Create Member");
+		
 		//textPanel.setVisible(false);
 		//updatePanel.setVisible(false);
 
 		ArrayList<String> a = new ArrayList<String>();
         //jta.setText("");
 
-        String aId = idcr.getText();
 
+
+        
+        if(idcr.getText().equals("")){
+        	
+        	JOptionPane.showMessageDialog(errorFrame, 
+  						"You must insert ID", "Failure", JOptionPane.ERROR_MESSAGE);
+        	throw new IllegalStateException("Stoping program");
+        	 }
+
+		String aId = idcr.getText();
         String givenN = givenName.getText();
         String familyN = familyName.getText();
         String emailinput = email.getText();
         String dBirth = birth.getText();
         String mSince = memberSince.getText();
         String aGender = "soWrong";
+
        // String isActive = active.getText();
         //String team = jTextField9.getText();
+        int pId = 0;
+         pId = Integer.parseInt(aId);
+         // _----_
+         if (aCheckBox8.isSelected() == false && aCheckBox9.isSelected() == false || aCheckBox10.isSelected() == false && aCheckBox11.isSelected() == false 
+            		|| givenN.equals("")||familyN.equals("")||emailinput.equals("")||dBirth.equals("")||mSince.equals("")
+            		|| aCheckBox12.isSelected() == false && aCheckBox13.isSelected() == false && aCheckBox14.isSelected() == false){
+            			
 
-        int pId = Integer.parseInt(aId);
+
+            			JOptionPane.showMessageDialog(errorFrame, 
+  						"You must insert all values", "Failure", JOptionPane.ERROR_MESSAGE);
+  						
+						//stmt.executeUpdate("delete from medlem where id = " + "'" + pId + "'");
+
+            			throw new IllegalStateException("Stoping program");
+            		}
+
+         //----
         int pActive = 3;
         Connection c = null;
         Statement stmt = null;
@@ -131,9 +157,11 @@ public class RegistryGui extends JFrame {
 
          	stmt = c.createStatement();
          	String testID = "false";
-         	ResultSet rstest = stmt.executeQuery("select id from medlem where id = " + "'" + pId + "'");
-         	int id_col = rstest.getInt("id");
-         	if (id_col == pId) {
+// Här ligger problemet, koden funkade fint tills man pushar,
+         	
+         	/*ResultSet rs = stmt.executeQuery("select id from medlem where id = " + "'" + pId + "'");
+         	
+         	if (rs.getInt(1) > 0) {
          		System.out.println("medlem finns redan");
          		JOptionPane.showMessageDialog(errorFrame, 
   						"Member does already exist ", "Failure", JOptionPane.ERROR_MESSAGE);
@@ -157,8 +185,23 @@ public class RegistryGui extends JFrame {
 								if (aCheckBox11.isSelected()) {
            							  aCheckBox11.setSelected(false);
       							 }
+      							 if (aCheckBox12.isSelected()) {
+           							  aCheckBox12.setSelected(false);
+       										 }
+       							if (aCheckBox13.isSelected()) {
+            					 		aCheckBox13.setSelected(false);
+      			 						  }
+								if (aCheckBox14.isSelected()) {
+           							  aCheckBox14.setSelected(false);
+      							 }
+      				throw new IllegalStateException("Stoping program, duo to member already exists");	
          	
-         	}
+         	} else {*/
+
+
+         		//------
+         		
+         		//------
          	
             String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + emailinput + "','" + aGender + "','" + dBirth + "','" + mSince + "'," + pActive + ");";
             stmt.executeUpdate(sql);
@@ -187,16 +230,50 @@ public class RegistryGui extends JFrame {
              			   
                 
             		}
+            	//Checkbox Role för Create
+            		if (aCheckBox12.isSelected() == true) {
+                	
+                	personRole = 0;
+               	 	String sql3 = "insert into funktion (id,role) " + "VALUES (" + pId + ",'" + personRole + "');";
+                	stmt.executeUpdate(sql3);
 
-            		JOptionPane.showMessageDialog(null, "You have now created a new member :" + pId);
+          		  }
+          			  if (aCheckBox13.isSelected() == true) {
+          			  	
+             		   personRole = 1;
+                		String sql3 = "insert into funktion (id,role) " + "VALUES (" + pId + ",'" + personRole + "');";
+               			 stmt.executeUpdate(sql3);
+
+            	}
+            	if (aCheckBox14.isSelected() == true) {
+            		
+            	    personRole = 2;
+             		String sql3 = "insert into funktion (id,role) " + "VALUES (" + pId + ",'" + personRole + "');";
+               		 stmt.executeUpdate(sql3);
+
+            	}
+       	
+
+
             	if (aCheckBox8.isSelected() == false && aCheckBox9.isSelected() == false || aCheckBox10.isSelected() == false && aCheckBox11.isSelected() == false 
-            		|| givenN.equals("")||familyN.equals("")||emailinput.equals("")||aGender.equals("")||dBirth.equals("")||mSince.equals("")){
+            		|| givenN.equals("")||familyN.equals("")||emailinput.equals("")||aGender.equals("")||dBirth.equals("")||mSince.equals("")
+            		|| aCheckBox12.isSelected() == false && aCheckBox13.isSelected() == false && aCheckBox14.isSelected() == false){
             			
 
 
             			JOptionPane.showMessageDialog(errorFrame, 
   						"You must insert all values", "Failure", JOptionPane.ERROR_MESSAGE);
-  							givenName.setText("");
+  						
+						stmt.executeUpdate("delete from medlem where id = " + "'" + pId + "'");
+
+            			throw new IllegalStateException("Stoping program");
+            		}
+
+            		//pushar ny medlem
+           JOptionPane.showMessageDialog(null, "You have now created a new member :" + pId);
+           textPanel.setVisible(false);
+         			givenName.setText("");
+         					idcr.setText("");
 							familyName.setText("");
 							email.setText("");
 							gender.setText("");
@@ -213,17 +290,27 @@ public class RegistryGui extends JFrame {
       			 						  }
 								if (aCheckBox11.isSelected()) {
            							  aCheckBox11.setSelected(false);
-       											 }
+      							 }
+      							 if (aCheckBox12.isSelected()) {
+           							  aCheckBox12.setSelected(false);
+       										 }
+       							if (aCheckBox13.isSelected()) {
+            					 		aCheckBox13.setSelected(false);
+      			 						  }
+								if (aCheckBox14.isSelected()) {
+           							  aCheckBox14.setSelected(false);
+      							 }
+      		 // här ska de in en } om vi anv if i try member exists
+      				 // slut else if not member already exists . rad 173
 
-
-						stmt.executeUpdate("delete from medlem where id = " + "'" + pId + "'");
-
-            	
-            		}
 
             } catch (Exception error) {
 
             System.out.println(error.getMessage());
+            error.printStackTrace();
+            JOptionPane.showMessageDialog(errorFrame, 
+  						"Member does already exist ", "Failure", JOptionPane.ERROR_MESSAGE);
+            	clearText();
 
            	
         }
@@ -271,32 +358,61 @@ public class RegistryGui extends JFrame {
                 	JOptionPane.showMessageDialog(errorFrame, 
   					"Couldn't remove/update this member", "Failure", JOptionPane.ERROR_MESSAGE);
                	 }
-
+               	 String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
+            		stmt.executeUpdate(sq11);
             
                 if (aCheckBox1.isSelected() == true) {
-                	String sq11 = "delete from funktion WHERE id = " + "'" + idexp + "'" + ";";
-            		stmt.executeUpdate(sq11);
+                	
                 	personRole = 0;
                	 	String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
                 	stmt.executeUpdate(sql3);
 
           		  }
           			  if (aCheckBox2.isSelected() == true) {
-          			  	String sq11 = "delete role from funktion WHERE id = " + "'" + idexp + "'" + ";";
-            			stmt.executeUpdate(sq11);
+          			  	
              		   personRole = 1;
                 		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
                			 stmt.executeUpdate(sql3);
 
             	}
             	if (aCheckBox3.isSelected() == true) {
-            		String sq11 = "delete role from funktion WHERE id = " + "'" + idexp + "'" + ";";
-           			 stmt.executeUpdate(sq11);
+            		
             	    personRole = 2;
              		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
                		 stmt.executeUpdate(sql3);
 
             	}
+
+            	if (aCheckBox1.isSelected() == false && aCheckBox2.isSelected() == false && aCheckBox3.isSelected() == false
+            		&& aCheckBox7.isSelected() == false){
+            					JOptionPane.showMessageDialog(errorFrame, 
+  						"You must Choose a Role", "Failure", JOptionPane.ERROR_MESSAGE);
+  							
+								if (aCheckBox1.isSelected()) {
+            			 				aCheckBox1.setSelected(false);
+      			 						  }
+								if (aCheckBox2.isSelected()) {
+           							  aCheckBox2.setSelected(false);
+       										 }
+       							if (aCheckBox3.isSelected()) {
+            					 		aCheckBox3.setSelected(false);
+      			 						  }
+      			 				if (aCheckBox5.isSelected()) {
+            					 		aCheckBox5.setSelected(false);
+      			 						  }
+      			 				if (aCheckBox6.isSelected()) {
+            					 		aCheckBox6.setSelected(false);
+      			 						  }
+								
+
+
+						stmt.executeUpdate("delete from funktion where id = " + "'" + idexp + "'");
+						throw new IllegalStateException("Stoping program duo to Role choice");
+						
+            	}
+
+            	
+
             	if (aCheckBox4.isSelected() == true) {
             	    
              			   
@@ -332,6 +448,7 @@ public class RegistryGui extends JFrame {
                 JOptionPane.showMessageDialog(errorFrame, "Congratulations! you have successfully updated a member");
                 updatePanel.setVisible(false);
                 System.out.println("Succesfull update");
+
                 } catch ( Exception err){
                 	System.out.println("NollPointerException");
                 	System.out.println(err.getMessage());
@@ -351,6 +468,41 @@ public class RegistryGui extends JFrame {
       	JCheckBox aCheckBox9 = new JCheckBox("UnActive");
       	JCheckBox aCheckBox10 = new JCheckBox("Man");
       	JCheckBox aCheckBox11 = new JCheckBox("Kvinna");
+      	JCheckBox aCheckBox12 = new JCheckBox("Player");
+      	JCheckBox aCheckBox13 = new JCheckBox("Coach");
+      	JCheckBox aCheckBox14 = new JCheckBox("Parent");
+
+//method clear text?
+      		public void clearText(){
+      						givenName.setText("");
+         					idcr.setText("");
+							familyName.setText("");
+							email.setText("");
+							gender.setText("");
+							birth.setText("");
+							memberSince.setText("");
+								if (aCheckBox9.isSelected()) {
+            			 				aCheckBox9.setSelected(false);
+      			 						  }
+								if (aCheckBox8.isSelected()) {
+           							  aCheckBox8.setSelected(false);
+       										 }
+       							if (aCheckBox10.isSelected()) {
+            					 		aCheckBox10.setSelected(false);
+      			 						  }
+								if (aCheckBox11.isSelected()) {
+           							  aCheckBox11.setSelected(false);
+      							 }
+      							 if (aCheckBox12.isSelected()) {
+           							  aCheckBox12.setSelected(false);
+       										 }
+       							if (aCheckBox13.isSelected()) {
+            					 		aCheckBox13.setSelected(false);
+      			 						  }
+								if (aCheckBox14.isSelected()) {
+           							  aCheckBox14.setSelected(false);
+      							 }
+      	}
 
 // konstruktor	
 	public RegistryGui(){
@@ -388,6 +540,9 @@ public class RegistryGui extends JFrame {
 	textPanel.add(givenName);
 	textPanel.add(lName);
 	textPanel.add(familyName);
+	textPanel.add(aCheckBox12);
+	textPanel.add(aCheckBox13);
+	textPanel.add(aCheckBox14);
 	textPanel.add(mail);
 	textPanel.add(email);
 	textPanel.add(aCheckBox10);

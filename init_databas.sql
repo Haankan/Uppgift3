@@ -1,6 +1,7 @@
 drop table if exists medlem;
 drop table if exists lag;
 drop table if exists funktion;
+drop table if exists children;
 
 
 create table medlem (
@@ -11,7 +12,8 @@ create table medlem (
        gender		varchar(6),
        birth		varchar(10),
        memberSince	varchar(10),
-       active		int);
+       active		int,
+ PRIMARY KEY (id));
 
 insert into medlem values (1, 'Åsa', 'Johnsson', 'Asa.Johnsson@myclub.se', 'kvinna', '1960-02-21', '1970-02-21', 1);
 insert into medlem values (2, 'Andreas', 'Gustafsson', 'Andreas.Gustafsson@myclub.se', 'man', '1986-10-01', '1996-10-01', 1);
