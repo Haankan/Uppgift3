@@ -384,7 +384,7 @@ public class RegistryGui extends JFrame {
             	}
 
             	if (aCheckBox1.isSelected() == false && aCheckBox2.isSelected() == false && aCheckBox3.isSelected() == false
-            		&& aCheckBox7.isSelected() == false){
+            		&& aCheckBox7.isSelected() == false && aCheckBox4.isSelected() == false ){
             					JOptionPane.showMessageDialog(errorFrame, 
   						"You must Choose a Role", "Failure", JOptionPane.ERROR_MESSAGE);
   							
