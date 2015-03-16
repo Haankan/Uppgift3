@@ -129,7 +129,14 @@ public class RegistryGui extends JFrame {
        // String isActive = active.getText();
         //String team = jTextField9.getText();
         int pId = 0;
+        try {
          pId = Integer.parseInt(aId);
+        }catch(NumberFormatException nFex){
+          nFex.getMessage();
+            JOptionPane.showMessageDialog(errorFrame, 
+              "You must insert Numerics", "Failure", JOptionPane.ERROR_MESSAGE);
+            throw new IllegalStateException("Stoping program duo to Non Numerics ID");
+        }
          // _----_
          if (aCheckBox8.isSelected() == false && aCheckBox9.isSelected() == false || aCheckBox10.isSelected() == false && aCheckBox11.isSelected() == false 
             		|| givenN.equals("")||familyN.equals("")||emailinput.equals("")||dBirth.equals("")||mSince.equals("")
