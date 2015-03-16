@@ -204,6 +204,7 @@ public class RegistryGui extends JFrame {
          		//------
          	
             String sql = "insert into medlem (id,givenName,familyName,email,gender,birth,memberSince,active) " + "VALUES (" + pId + ",'" + givenN + "','" + familyN + "','" + emailinput + "','" + aGender + "','" + dBirth + "','" + mSince + "'," + pActive + ");";
+            System.out.println("ZICO: " + sql);
             stmt.executeUpdate(sql);
 
 
@@ -232,16 +233,17 @@ public class RegistryGui extends JFrame {
             		}
             	//Checkbox Role för Create
             		if (aCheckBox12.isSelected() == true) {
-                	
+                	String inputPlayerC = JOptionPane.showInputDialog(errorFrame, "What team does the member play in? ");
                 	personRole = 0;
-               	 	String sql3 = "insert into funktion (id,role) " + "VALUES (" + pId + ",'" + personRole + "');";
+               	 	String sql3 = "insert into funktion (id,role,team) " + "VALUES (" + pId + ",'" + personRole + "','" + inputPlayerC + "')";
+                  System.out.println(sql3); 
                 	stmt.executeUpdate(sql3);
 
           		  }
           			  if (aCheckBox13.isSelected() == true) {
-          			  	
+          			  	String inputCoachC = JOptionPane.showInputDialog(errorFrame, "What team does the member coach? ");
              		   personRole = 1;
-                		String sql3 = "insert into funktion (id,role) " + "VALUES (" + pId + ",'" + personRole + "');";
+                		String sql3 = "insert into funktion (id,role,team) " + "VALUES (" + pId + ",'" + personRole + "','" + inputCoachC + "')";
                			 stmt.executeUpdate(sql3);
 
             	}
@@ -265,6 +267,7 @@ public class RegistryGui extends JFrame {
   						"You must insert all values", "Failure", JOptionPane.ERROR_MESSAGE);
   						
 						stmt.executeUpdate("delete from medlem where id = " + "'" + pId + "'");
+            stmt.executeUpdate("delete from funktion where id = " + "'" + pId + "'");
 
             			throw new IllegalStateException("Stoping program");
             		}
@@ -362,16 +365,17 @@ public class RegistryGui extends JFrame {
             		stmt.executeUpdate(sq11);
             
                 if (aCheckBox1.isSelected() == true) {
+                  String inputPlayer = JOptionPane.showInputDialog(errorFrame, "What team does the member play in? ");
                 	
                 	personRole = 0;
-               	 	String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
+               	 	String sql3 = "insert into funktion (id,role,team) " + "VALUES (" + idexp + ",'" + personRole + "','" + inputPlayer + "')";
                 	stmt.executeUpdate(sql3);
 
           		  }
           			  if (aCheckBox2.isSelected() == true) {
-          			  	
+          			  	String inputCoach = JOptionPane.showInputDialog(errorFrame, "What team does the member coach? "+idexp);
              		   personRole = 1;
-                		String sql3 = "insert into funktion (id,role) " + "VALUES (" + idexp + ",'" + personRole + "');";
+                		String sql3 = "insert into funktion (id,role,team) " + "VALUES (" + idexp + ",'" + personRole + "','" + inputCoach + "')";
                			 stmt.executeUpdate(sql3);
 
             	}
